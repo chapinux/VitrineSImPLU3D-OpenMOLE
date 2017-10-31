@@ -1,0 +1,11 @@
+
+FROM rocker/shiny
+
+RUN apt update && apt install -y libgdal-dev git libssl-dev libcurl4-openssl-dev
+
+RUN R -e "install.packages(c('plotly','maptools','scales','RColorBrewer','dplyr'), repos='http://cran.rstudio.com/')" 
+RUN cd /tmp && \
+    git clone https://github.com/IGNF/simplu3D-openmole.git && \
+    cd /tmp/simplu3D-openmole && git checkout visuPSEPremium && \
+    mv /tmp/simplu3D-openmole/visuPSE /srv/shiny-server/
+
